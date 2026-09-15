@@ -15,6 +15,11 @@ cp sifetch /usr/bin/sifetch
 ```
 
 # Customization
-For customization, you edit the ```config.h``` file.
+For customization, you can see the ```config.h``` file.
 # Preview
-<img src="./images/preview2.png" height=360px>
+<img src="./images/preview.png" height=360px>
+
+# Currently supported logos:
+Arch Linux\n
+Exherbo Linux\n
+Gentoo Linux\n
