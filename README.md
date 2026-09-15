@@ -20,6 +20,6 @@ For customization, you can see the ```config.h``` file.
 <img src="./images/preview.png" height=360px>
 
 # Currently supported logos:
-Arch Linux\n
-Exherbo Linux\n
-Gentoo Linux\n
+Arch Linux <br>
+Exherbo Linux <br>
+Gentoo Linux <br>
