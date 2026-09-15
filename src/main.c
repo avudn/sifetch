@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
 		handleargs(argv);
 	} else {
 
-	printf("\e[1;1H\e[2J"); /* very secret scary killer DANGEROUS PRINTF DONT UNCOMMENT (i warned....) */
 	printf("\n");
 	showlogo();	
 	printf("\n");
