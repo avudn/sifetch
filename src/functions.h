@@ -4,7 +4,7 @@
 #define VERSION "1.3.0"
 
 int checkfile(const char *file) {
-        char buffer[100];
+        char buffer[1024];
         FILE *f  = fopen(file, "r");
 
         if (f == NULL) {
@@ -25,6 +25,10 @@ void showhelp() {
 	printf("-h — Show Help\n");
 }
 
+int checkshell() {
+	
+}
+
 void handleargs(char *argv[]) {
 	if (strncmp("-v", argv[1], 3) == 0) {
 		printf("Version: %s\n", VERSION);
@@ -34,7 +38,7 @@ void handleargs(char *argv[]) {
 }
 
 unsigned long long get_meminfo_value(const char *key) {
-    char buffer[400];
+    char buffer[1024];
     unsigned long long value = 0;
     
     FILE *fl = fopen("/proc/meminfo", "r");
@@ -88,7 +92,7 @@ int get_module(const char * module) {
 
 		char *user = buf;
 		
-		printf("sifetch -- %s@", user);
+		printf("sifetch | %s@", user);
 		checkfile(HOST_DIR);
 
 	} else if (strcmp(module, "term") == 0) {
@@ -96,7 +100,6 @@ int get_module(const char * module) {
 			if (term == NULL)
 				return 1;
 		printf("%s\n", term);
-
 	} else if (strcmp(module, "kernel") == 0) {
 		checkfile(KERNEL_DIR);
 
@@ -106,8 +109,14 @@ int get_module(const char * module) {
 				return 1;
 		printf("one and only %s\n", compositor);	
 
+	} else if (strcmp(module, "shell") == 0){
+		char *shell = getenv("SHELL");
+			if (shell == NULL)
+				return 1;
+		printf("%s\n", shell);
+
 	} else {
-		printf("Module not found. Aborting.\n");
+		printf("Module not available.\n");
 		return 1;
 
 	}

@@ -12,6 +12,7 @@
 const char * os = "OS: ";
 const char * uptime = "uppies: ";
 const char * kernel = "kernel: ";
+const char * shell = "shell: ";
 const char * term = "terminal: ";
 const char * compositor = "compositor: ";
 const char * host = "user: ";

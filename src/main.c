@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
 
 	/* printf("\e[1;1H\e[2J"); very secret scary killer DANGEROUS PRINTF DONT UNCOMMENT (i warned....) */
 	printf("\n");
+
 	get_module("user");
 
 	printf("%s", os);
@@ -25,6 +26,10 @@ int main(int argc, char *argv[]) {
 
 	printf("%s", term);
 	get_module("term");
+
+	printf("%s", shell);
+	get_module("shell");
+
 
 	printf("%s", kernel);
 	checkfile(KERNEL_DIR);
