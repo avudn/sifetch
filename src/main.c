@@ -10,51 +10,46 @@
 
 int main(int argc, char *argv[]) {
 
+	/* Set your logo here. Currently, logo implementation is sketchy */
+
 	/* Arguments */
 
 	if (argc >= 2) {
 		handleargs(argv);
 	} else {
 
-	/* printf("\e[1;1H\e[2J"); very secret scary killer DANGEROUS PRINTF DONT UNCOMMENT (i warned....) */
+	printf("\e[1;1H\e[2J"); /* very secret scary killer DANGEROUS PRINTF DONT UNCOMMENT (i warned....) */
 	printf("\n");
-
+	showlogo();	
+	printf("\n");
 	get_module("user");
 
 	printf("%s", os);
 	checkdistro();
 
-	printf("%s", term);
+	printf("%s",term);
 	get_module("term");
 
-	printf("%s", shell);
-	get_module("shell");
-
-
-	printf("%s", kernel);
+	printf("%s",kernel);
 	checkfile(KERNEL_DIR);
+
+	printf("%s", uptime);
+	get_module("uptime");
+
+	printf("%s",shell);
+	get_module("shell");
 
 	printf("%s", memory);
 	get_memory();
 	
 	printf("%s", compositor);
 	get_module("compositor");
-
+		
 	printf("\n");
-/*
-	printf("%s", uptime);
-	get_module("uptime");
-
-	printf("%s", term);
-	get_module("term");
-
-	
-
-	printf("%s", host);
-	get_module("host");	
+	scanf("%d");
 
 	printf("%s", procs);
-	get_module("procs"); */
+	get_module("procs"); 
 
 	}
 	return 0;

@@ -25,10 +25,6 @@ void showhelp() {
 	printf("-h — Show Help\n");
 }
 
-int checkshell() {
-	
-}
-
 void handleargs(char *argv[]) {
 	if (strncmp("-v", argv[1], 3) == 0) {
 		printf("Version: %s\n", VERSION);
@@ -82,18 +78,26 @@ int get_module(const char * module) {
 
 	} else if (strcmp(module, "user") == 0) { 
 
-		char buf[256];
-		int get = getlogin_r(buf, sizeof(buf));
+		char nbuf[64];
+		char hbuf[64];
 
-		if (get != 0) {
+		int userget = getlogin_r(nbuf, sizeof(nbuf));
+		
+		if (userget != 0) {
 			printf("Login not found.");
 			return 1;
 		}
 
-		char *user = buf;
+		char *user = nbuf;	
+		int hostn = gethostname(hbuf,sizeof(hbuf));
 		
-		printf("sifetch | %s@", user);
-		checkfile(HOST_DIR);
+		if (hostn != 0) {
+			printf("Hostname not found.");
+			return 1;
+		}
+
+		char *host = hbuf;
+		printf("sifetch | %s@%s\n", user, host);
 
 	} else if (strcmp(module, "term") == 0) {
 		char *term = getenv("TERM");
@@ -128,13 +132,57 @@ void checkdistro() {
 	FILE *openosrelease = fopen(OS_DIR, "r");
 	
 	fgets(osrelease, sizeof(osrelease), openosrelease);
+	fclose(openosrelease);
+
 	char *distro = (osrelease + 6);
 	distro[strlen(distro) - 2] = '\0';
 
-	if (strstr(distro, "Linux\n") != NULL) {
+	if (strstr(distro, "Linux") != NULL) {
 		printf("what could it be..? %s!\n", distro);
 	} else {
-		printf("what could it be..? %s Linux!\n", distro);
+		printf("what could it be..? %s Linux!\n", distro);	
 	}
 }
+
+const char *get_ascii() {
+	static char osrelease[40];
+	FILE *f = fopen(OS_DIR, "r");
+
+	if (!f)
+		return NULL;
+	
+	fgets(osrelease, sizeof(osrelease), f);
+	fclose(f);
+
+	char *distro = osrelease + 6;
+
+	return distro;	
+}
+
+int showlogo() {
+
+	const char *distro = get_ascii();
+
+	if (strstr(distro, "Exherbo") != NULL) {
+		char line1[] = "\t        (__) \n";
+		char line2[] = "\t`\\------(oo) \n";
+		char line3[] = "\t  ||    (__) \n";
+		char line4[] = "\t  ||w--||    \n\n";
+
+		printf("%s%s%s%s", line1, line2, line3, line4);
+	} else if (strstr(get_ascii(), distro) != NULL) {
+		char line1[] = "\t      /\\ \n";
+		char line2[] = "\t     /  \\ \n";
+		char line3[] = "\t    /    \\ \n";
+		char line4[] = "\t   /      \\ \n";
+		char line5[] = "\t  /   ,,   \\ \n";
+		char line6[] = "\t /   |  |   \\ \n";
+		char line7[] = "\t/_-''    ''-_\\ \n";
+
+		printf("%s%s%s%s%s%s%s", line1,line2,line3,line4,line5,line6,line7);
+	}
+	return 0;
+}
+
 #endif
+
