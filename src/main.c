@@ -51,6 +51,5 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 	}
 		
-	scanf("%c");
 	return 0;
 }
