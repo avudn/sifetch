@@ -45,12 +45,12 @@ int main(int argc, char *argv[]) {
 	printf("%s", compositor);
 	get_module("compositor");
 		
-	printf("\n");
-	scanf("%d");
-
 	printf("%s", procs);
 	get_module("procs"); 
 
+	printf("\n");
 	}
+		
+	scanf("%c");
 	return 0;
 }

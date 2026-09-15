@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#define VERSION "1.3.0"
+#define VERSION "1.4.0"
 
 int checkfile(const char *file) {
         char buffer[1024];
@@ -162,24 +162,43 @@ const char *get_ascii() {
 int showlogo() {
 
 	const char *distro = get_ascii();
+	if (distro == NULL) 
+		return 1;
 
 	if (strstr(distro, "Exherbo") != NULL) {
-		char line1[] = "\t        (__) \n";
-		char line2[] = "\t`\\------(oo) \n";
-		char line3[] = "\t  ||    (__) \n";
-		char line4[] = "\t  ||w--||    \n\n";
+		printf(
+		"\t        (__) \n"
+		"\t`\\------(oo) \n"
+		"\t  ||    (__) \n"
+		"\t  ||w--||    \n"
+		);
 
-		printf("%s%s%s%s", line1, line2, line3, line4);
-	} else if (strstr(get_ascii(), distro) != NULL) {
-		char line1[] = "\t      /\\ \n";
-		char line2[] = "\t     /  \\ \n";
-		char line3[] = "\t    /    \\ \n";
-		char line4[] = "\t   /      \\ \n";
-		char line5[] = "\t  /   ,,   \\ \n";
-		char line6[] = "\t /   |  |   \\ \n";
-		char line7[] = "\t/_-''    ''-_\\ \n";
+	} else if (strstr(get_ascii(), "Arch") != NULL) {
+		
 
-		printf("%s%s%s%s%s%s%s", line1,line2,line3,line4,line5,line6,line7);
+		printf(
+       	 	"\t      /\\\n"
+        	"\t     /  \\\n"
+        	"\t    /    \\\n"
+        	"\t   /      \\\n"
+        	"\t  /   ,,   \\\n"
+        	"\t /   |  |   \\\n"
+        	"\t/_-''    ''-_\\\n"
+		);
+
+		/* printf("%s%s%s%s%s%s%s", line1,line2,line3,line4,line5,line6,line7); */
+	} else if (strstr(get_ascii(), "Gentoo") != NULL) {
+		printf(
+        	"\t _-----_ \n"
+        	"\t(       \\ \n"
+        	"\t\\    0   \\ \n"
+        	"\t \\        ) \n"
+        	"\t /      _/ \n"
+        	"\t(     _- \n"
+       	 	"\t\\____- \n"
+    		);
+	} else {
+	
 	}
 	return 0;
 }
