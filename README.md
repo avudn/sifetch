@@ -5,7 +5,7 @@ sifetch is a little fetch program written in C. I decided to use it to test my s
 
 # Build
 
-To build and install it, go to src/ directory and run: <br>
+To build and install it, run: <br>
 ```bash
 make
 doas make install
