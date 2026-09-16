@@ -142,8 +142,8 @@ const char *get_ascii() {
 	static char osrelease[40];
 	FILE *f = fopen("/etc/os-release", "r");
 
-	if (!f)
-		return NULL;
+	if (f == NULL)
+		return "1";
 	
 	fgets(osrelease, sizeof(osrelease), f);
 	fclose(f);
