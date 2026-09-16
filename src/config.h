@@ -1,11 +1,10 @@
 #ifndef DISTROS_H
 #define DISTROS_H
 
-/* Directories */
+/* Configuration */
 
-#define KERNEL_DIR "/proc/sys/kernel/osrelease"
-#define OS_DIR "/etc/os-release"
-#define HOST_DIR "/etc/hostname"
+#define logos_enable 0
+#define hide_term 0
 
 /* Hardware Stuff */
 

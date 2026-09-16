@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/sysinfo.h>
+#include <sys/utsname.h>
+
+#ifdef __linux__
+	#include <unistd.h>
+	#include <sys/sysinfo.h>
+#endif
+
+#include "colors.h"
 #include "config.h"
 #include "functions.h"
 
-/* Functions are defined in functions.h file, if you want to take a look at them. */
+/* Functions are defined in functions.h file, if you want to ake a look at them. */
 
 int main(int argc, char *argv[]) {
-
-	/* Set your logo here. Currently, logo implementation is sketchy */
 
 	/* Arguments */
 
@@ -19,35 +23,48 @@ int main(int argc, char *argv[]) {
 	} else {
 
 	printf("\n");
-	showlogo();	
-	printf("\n");
-	get_module("user");
 
-	printf("%s", os);
+	if (hide_term == 1) {	
+		printf("\e[1;1H\e[2J");
+	}
+
+	if (logos_enable == 1) {
+		showlogo();	
+		printf("\n");
+	}
+
+
+
+	get_module("user");
+	printf(PNK BOLD "%s" RESET, os);
 	checkdistro();
 
-	printf("%s",term);
+	printf(PNK BOLD "%s" RESET,term);
 	get_module("term");
 
-	printf("%s",kernel);
-	checkfile(KERNEL_DIR);
+	printf(PNK BOLD "%s" RESET,kernel);
+	get_kernel();
 
-	printf("%s", uptime);
+	printf(PNK BOLD "%s" RESET, uptime);
 	get_module("uptime");
 
-	printf("%s",shell);
+	printf(PNK BOLD "%s" RESET,shell);
 	get_module("shell");
 
-	printf("%s", memory);
+	printf(PNK BOLD "%s" RESET, memory);
 	get_memory();
 	
-	printf("%s", compositor);
+	printf(PNK BOLD "%s" RESET, compositor);
 	get_module("compositor");
 		
-	printf("%s", procs);
+	printf(PNK BOLD "%s" RESET, procs);
 	get_module("procs"); 
 
 	printf("\n");
+	}
+
+	if (hide_term == 1) {
+		getchar();
 	}
 		
 	return 0;

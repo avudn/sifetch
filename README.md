@@ -5,17 +5,15 @@ sifetch is a little fetch program written in C. I decided to use it to test my s
 
 # Build
 
-To build it, go to src/ directory and run: <br>
+To build and install it, go to src/ directory and run: <br>
 ```bash
-gcc -o sifetch main.c
+make
+doas make install
 ```
-Then, if you want to use it globally, just run: <br>
-```bash
-cp sifetch /usr/bin/sifetch
-```
-
 # Customization
-For customization, you can see the ```config.h``` file.
+For customization, you can see the ```config.h``` file. <br>
+You can adjust hide_term, and logos_enable variables there.
+
 # Preview
 <img src="./images/preview.png" height=360px>
 

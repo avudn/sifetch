@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#define VERSION "1.4.0"
+#define VERSION "1.5.0"
 
 int checkfile(const char *file) {
         char buffer[1024];
@@ -52,6 +52,13 @@ unsigned long long get_meminfo_value(const char *key) {
     return value;
 }
 
+void get_kernel(void) {
+	struct utsname kernelget;
+	uname(&kernelget);
+
+	printf("%s\n", kernelget.release);
+}
+
 void get_memory(void) {
     unsigned long long total = get_meminfo_value("MemTotal:") / 1024;
     unsigned long long avail = get_meminfo_value("MemAvailable:") / 1024;
@@ -97,15 +104,13 @@ int get_module(const char * module) {
 		}
 
 		char *host = hbuf;
-		printf("sifetch | %s@%s\n", user, host);
+		printf(WHT BOLD "%s@%s\n" RESET, user, host);
 
 	} else if (strcmp(module, "term") == 0) {
 		char *term = getenv("TERM");
 			if (term == NULL)
 				return 1;
 		printf("%s\n", term);
-	} else if (strcmp(module, "kernel") == 0) {
-		checkfile(KERNEL_DIR);
 
 	} else if (strcmp(module, "compositor") == 0) {
 		char *compositor = getenv("XDG_SESSION_TYPE");
@@ -127,9 +132,12 @@ int get_module(const char * module) {
 	return 0;
 }
 
-void checkdistro() {
+int checkdistro() {
 	char osrelease[40];
-	FILE *openosrelease = fopen(OS_DIR, "r");
+	FILE *openosrelease = fopen("/etc/os-release", "r");
+
+	if (openosrelease == NULL)
+		return 1;
 	
 	fgets(osrelease, sizeof(osrelease), openosrelease);
 	fclose(openosrelease);
@@ -142,11 +150,12 @@ void checkdistro() {
 	} else {
 		printf("what could it be..? %s Linux!\n", distro);	
 	}
+	return 0;
 }
 
 const char *get_ascii() {
 	static char osrelease[40];
-	FILE *f = fopen(OS_DIR, "r");
+	FILE *f = fopen("/etc/os-release", "r");
 
 	if (!f)
 		return NULL;
@@ -174,8 +183,7 @@ int showlogo() {
 		);
 
 	} else if (strstr(get_ascii(), "Arch") != NULL) {
-		
-
+	
 		printf(
        	 	"\t      /\\\n"
         	"\t     /  \\\n"
@@ -188,7 +196,7 @@ int showlogo() {
 
 		/* printf("%s%s%s%s%s%s%s", line1,line2,line3,line4,line5,line6,line7); */
 	} else if (strstr(get_ascii(), "Gentoo") != NULL) {
-		printf(
+		printf(RED
         	"\t _-----_ \n"
         	"\t(       \\ \n"
         	"\t\\    0   \\ \n"
@@ -196,7 +204,17 @@ int showlogo() {
         	"\t /      _/ \n"
         	"\t(     _- \n"
        	 	"\t\\____- \n"
-    		);
+    		RESET);
+	} else if (strstr(get_ascii(), "Nix") != NULL) {
+		printf(
+    "\t" BLU "  ▗▄   " CYN "▗▄ ▄▖" "\n"
+    "\t" BLU " ▄▄🬸█▄▄▄" CYN "🬸█▛ " BLU "▃" "\n"
+    "\t" CYN "   ▟▛    " CYN "▜" BLU "▃▟🬕" "\n"
+    "\t" CYN "🬋🬋🬫█      " BLU "█🬛🬋🬋" "\n"
+    "\t" CYN " 🬷▛🮃" CYN "▙    " BLU "▟▛" "\n"
+    "\t" CYN " 🮃 " CYN "▟█🬴" BLU "▀▀▀█🬴▀▀" "\n"
+    "\t  " CYN "▝▀ ▀▘   " BLU "▀▘" "\n"
+    RESET);	
 	} else {
 		printf(
         	"\t    .--. \n"
