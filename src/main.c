@@ -22,8 +22,6 @@ int main(int argc, char *argv[]) {
 		handleargs(argv);
 	} else {
 
-	printf("\n");
-
 	if (hide_term == 1) {	
 		printf("\e[1;1H\e[2J");
 	}
