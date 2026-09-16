@@ -3,21 +3,6 @@
 
 #define VERSION "1.5.0"
 
-int checkfile(const char *file) {
-        char buffer[1024];
-        FILE *f  = fopen(file, "r");
-
-        if (f == NULL) {
-                return 1;
-	}
-
-	fgets(buffer, sizeof(buffer), f);
-	printf("%s", buffer);
-
-	fclose(f);
-        return 0;
-}
-
 void showhelp() {
 	printf("sifetch 1.3.0\n");
 	printf("Usage: sifetch [Option] \n");
