@@ -17,7 +17,3 @@ You can adjust hide_term, and logos_enable variables there.
 # Preview
 <img src="./images/preview.png" height=360px>
 
-# Currently supported logos:
-Arch Linux <br>
-Exherbo Linux <br>
-Gentoo Linux <br>
