@@ -3,10 +3,10 @@
 
 /* Configuration */
 
-#define logos_enable 0
+#define logos_enable 1
 #define hide_term 0
 
-/* Hardware Stuff */
+/* Stats */
 
 const char * os = "OS: ";
 const char * uptime = "uppies: ";
