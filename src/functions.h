@@ -24,7 +24,7 @@ void handleargs(char *argv[]) {
 unsigned long long get_meminfo_value(const char *key) {
     char buffer[1024];
     unsigned long long value = 0;
-    
+
     FILE *fl = fopen("/proc/meminfo", "r");
     if (fl == NULL)
         return 0;
@@ -81,15 +81,15 @@ int get_user() {
 	char hbuf[64];
 
 	int userget = getlogin_r(nbuf, sizeof(nbuf));
-		
+
 	if (userget != 0) {
 		printf("Login not found.");
 		return 1;
 	}
 
-	char *user = nbuf;	
+	char *user = nbuf;
 	int hostn = gethostname(hbuf,sizeof(hbuf));
-		
+
 	if (hostn != 0) {
 		printf("Hostname not found.");
 		return 1;
@@ -97,7 +97,7 @@ int get_user() {
 
 	char *host = hbuf;
 	printf(WHT BOLD "%s@%s\n" RESET, user, host);
-		
+
 	return 0;
 
 }
@@ -135,27 +135,27 @@ int get_shell() {
 	return 0;
 }
 
-int checkdistro() {
-	char osrelease[40];
-	FILE *openosrelease = fopen("/etc/os-release", "r");
-
-	if (openosrelease == NULL)
-		return 1;
-	
-	fgets(osrelease, sizeof(osrelease), openosrelease);
-	fclose(openosrelease);
-
-	char *distro = (osrelease + 6);
-	distro[strlen(distro) - 2] = '\0';
-
-	if (strstr(distro, "Linux") != NULL) {
-		printf("what could it be..? %s!\n", distro);
-
-	} else {
-		printf("what could it be..? %s Linux!\n", distro);
-
-	}
-	return 0;
+void  checkdistro() {
+    FILE *fp = fopen("/etc/os-release", "r");
+    if (!fp) {
+        printf( "OS: Generic Linux\n");
+        return;
+    }
+    char line[512];
+    while (fgets(line, sizeof(line), fp)) {
+        if(strncmp(line, "PRETTY_NAME=", 12) == 0) {
+            char *name = line +  12;
+            if (*name == '"') name++;
+            size_t len = strlen(name);
+            if (len > 0 && name[len - 1] == '\n') name[--len] = '\0';
+            if (len > 0 && name[len - 1] == '"') name[--len] = '\0';
+            printf( "OS:  %s\n", name);
+            fclose(fp);
+            return;
+        }
+    }
+    fclose(fp);
+    printf( "OS: Generic Linux\n");
 }
 
 const char *get_ascii() {
@@ -164,19 +164,19 @@ const char *get_ascii() {
 
 	if (f == NULL)
 		return "1";
-	
+
 	fgets(osrelease, sizeof(osrelease), f);
 	fclose(f);
 
 	char *distro = osrelease + 6;
 
-	return distro;	
+	return distro;
 }
 
 int showlogo() {
 
 	const char *distro = get_ascii();
-	if (distro == NULL) 
+	if (distro == NULL)
 		return 1;
 
 	if (strstr(distro, "Exherbo") != NULL) {
@@ -188,7 +188,7 @@ int showlogo() {
 		);
 
 	} else if (strstr(get_ascii(), "Arch") != NULL) {
-	
+
 		printf(
        	 	"\t      /\\\n"
         	"\t     /  \\\n"
@@ -219,7 +219,7 @@ int showlogo() {
     "\t" CYN " 🬷▛🮃" CYN "▙    " BLU "▟▛" "\n"
     "\t" CYN " 🮃 " CYN "▟█🬴" BLU "▀▀▀█🬴▀▀" "\n"
     "\t  " CYN "▝▀ ▀▘   " BLU "▀▘" "\n"
-    RESET);	
+    RESET);
 	} else {
 		printf(
         	"\t    .--. \n"
@@ -235,4 +235,3 @@ int showlogo() {
 }
 
 #endif
-
