@@ -3,6 +3,9 @@
 
 #define VERSION "1.5.0"
 
+struct sysinfo modules;
+
+
 void showhelp() {
 	printf("sifetch 1.3.0\n");
 	printf("Usage: sifetch [Option] \n");
@@ -52,68 +55,83 @@ void get_memory(void) {
     printf("%lluM/%lluM\n", used, total);
 }
 
-int get_module(const char * module) {
-	struct sysinfo modules;
+void get_uptime() {
 	sysinfo(&modules);
 
-	if (strcmp(module, "uptime") == 0) {
-		long seconds = modules.uptime;
-		long minutes = seconds/60;
-		long hours = minutes/60;
+	long seconds = modules.uptime;
+	long minutes = seconds/60;
+	long hours = minutes/60;
 
-		minutes %= 60;
+	minutes %= 60;
 
-		printf("%ld hours, %ld mins\n", hours, minutes);
+	printf("%ld hours, %ld mins\n", hours, minutes);
 
-	} else if (strcmp(module, "procs") == 0) {
-		printf("%d\n", modules.procs);
+}
 
-	} else if (strcmp(module, "user") == 0) { 
+void get_procs() {
+	sysinfo(&modules);
 
-		char nbuf[64];
-		char hbuf[64];
+	printf("%d\n", modules.procs);
+}
 
-		int userget = getlogin_r(nbuf, sizeof(nbuf));
+int get_user() {
+	sysinfo(&modules);
+
+	char nbuf[64];
+	char hbuf[64];
+
+	int userget = getlogin_r(nbuf, sizeof(nbuf));
 		
-		if (userget != 0) {
-			printf("Login not found.");
-			return 1;
-		}
-
-		char *user = nbuf;	
-		int hostn = gethostname(hbuf,sizeof(hbuf));
-		
-		if (hostn != 0) {
-			printf("Hostname not found.");
-			return 1;
-		}
-
-		char *host = hbuf;
-		printf(WHT BOLD "%s@%s\n" RESET, user, host);
-
-	} else if (strcmp(module, "term") == 0) {
-		char *term = getenv("TERM");
-			if (term == NULL)
-				return 1;
-		printf("%s\n", term);
-
-	} else if (strcmp(module, "compositor") == 0) {
-		char *compositor = getenv("XDG_SESSION_TYPE");
-			if (compositor == NULL)
-				return 1;
-		printf("one and only %s\n", compositor);	
-
-	} else if (strcmp(module, "shell") == 0){
-		char *shell = getenv("SHELL");
-			if (shell == NULL)
-				return 1;
-		printf("%s\n", shell);
-
-	} else {
-		printf("Module not available.\n");
+	if (userget != 0) {
+		printf("Login not found.");
 		return 1;
-
 	}
+
+	char *user = nbuf;	
+	int hostn = gethostname(hbuf,sizeof(hbuf));
+		
+	if (hostn != 0) {
+		printf("Hostname not found.");
+		return 1;
+	}
+
+	char *host = hbuf;
+	printf(WHT BOLD "%s@%s\n" RESET, user, host);
+		
+	return 0;
+
+}
+
+int get_term() {
+	sysinfo(&modules);
+
+	char *term = getenv("TERM");
+	if (term == NULL)
+		return 1;
+	printf("%s\n", term);
+
+	return 0;
+}
+
+int get_compositor() {
+	sysinfo(&modules);
+
+	char *compositor = getenv("XDG_SESSION_TYPE");
+		if (compositor == NULL)
+			return 1;
+	printf("one and only %s\n", compositor);
+
+	return 0;
+}
+
+int get_shell() {
+	sysinfo(&modules);
+
+	char *shell = getenv("SHELL");
+		if (shell == NULL)
+			return 1;
+	printf("%s\n", shell);
+
 	return 0;
 }
 
@@ -132,8 +150,10 @@ int checkdistro() {
 
 	if (strstr(distro, "Linux") != NULL) {
 		printf("what could it be..? %s!\n", distro);
+
 	} else {
-		printf("what could it be..? %s Linux!\n", distro);	
+		printf("what could it be..? %s Linux!\n", distro);
+
 	}
 	return 0;
 }

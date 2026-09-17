@@ -33,30 +33,30 @@ int main(int argc, char *argv[]) {
 
 
 
-	get_module("user");
+	get_user();
 	printf(PNK BOLD "%s" RESET, os);
 	checkdistro();
 
 	printf(PNK BOLD "%s" RESET,term);
-	get_module("term");
+	get_term();	
 
 	printf(PNK BOLD "%s" RESET,kernel);
 	get_kernel();
 
 	printf(PNK BOLD "%s" RESET, uptime);
-	get_module("uptime");
+	get_uptime();
 
 	printf(PNK BOLD "%s" RESET,shell);
-	get_module("shell");
+	get_shell();
 
 	printf(PNK BOLD "%s" RESET, memory);
 	get_memory();
 	
 	printf(PNK BOLD "%s" RESET, compositor);
-	get_module("compositor");
+	get_compositor();
 		
 	printf(PNK BOLD "%s" RESET, procs);
-	get_module("procs"); 
+	get_procs();	
 
 	printf("\n");
 	}
