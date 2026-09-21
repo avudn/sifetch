@@ -15,5 +15,5 @@ For customization, you can see the ```config.h``` file. <br>
 You can adjust hide_term, and logos_enable variables there.
 
 # Preview
-<img src="./images/preview.png" height=360px>
+<img width="533" height="470" alt="image" src="https://github.com/user-attachments/assets/766fbe61-c0fd-4e27-b48c-11ad4068ebbe" />
 
