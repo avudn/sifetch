@@ -34,31 +34,31 @@ int main(int argc, char *argv[]) {
 	}
 
 	get_user();
-	printf(MAG BOLD "%s" RESET, os);
+	printf(COLOR BOLD "%s" RESET, os);
 	checkdistro();
 
-	printf(MAG BOLD "%s" RESET,term);
+	printf(COLOR BOLD "%s" RESET,term);
 	get_term();	
 
-	printf(MAG BOLD "%s" RESET,kernel);
+	printf(COLOR BOLD "%s" RESET,kernel);
 	get_kernel();
 
-	printf(MAG BOLD "%s" RESET, uptime);
+	printf(COLOR BOLD "%s" RESET, uptime);
 	get_uptime();
 
-  printf(MAG BOLD "%s" RESET, wm);
+  printf(COLOR BOLD "%s" RESET, wm);
   get_wmde();
 
-	printf(MAG BOLD "%s" RESET, shell);
+	printf(COLOR BOLD "%s" RESET, shell);
 	get_shell();
 
-	printf(MAG BOLD "%s" RESET, memory);
+	printf(COLOR BOLD "%s" RESET, memory);
 	get_memory();
 	
-	printf(MAG BOLD "%s" RESET, compositor);
+	printf(COLOR BOLD "%s" RESET, compositor);
 	get_compositor();
 		
-	printf(MAG BOLD "%s" RESET, procs);
+	printf(COLOR BOLD "%s" RESET, procs);
 	get_procs();	
 
 	printf("\n");

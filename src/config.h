@@ -1,8 +1,8 @@
 #ifndef DISTROS_H
 #define DISTROS_H
 
-/* Toggles */
-
+/* Colors are defined in colors.h, refer to them if you want to change colors. */
+#define COLOR MAG /* magenta (default) */
 #define logos_enable 1
 #define hide_term 1
 

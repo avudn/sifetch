@@ -3,8 +3,8 @@
 
 #define VERSION "1.5.0"
 
-struct sysinfo modules;
 
+struct sysinfo modules;
 
 void showhelp() {
 	printf("sifetch 1.3.0\n");
@@ -106,7 +106,7 @@ int get_user() {
 	}
 
 	char *host = hbuf;
-	printf(WHT BOLD "%s@%s\n" RESET, user, host);
+	printf(COLOR BOLD "%s@%s\n" RESET, user, host);
 		
 	return 0;
 
@@ -152,12 +152,13 @@ int checkdistro() {
 	if (openosrelease == NULL)
 		return 1;
 	
-	fgets(osrelease, sizeof(osrelease), openosrelease);
-	fclose(openosrelease);
+	if (fgets(osrelease, sizeof(osrelease), openosrelease) == NULL)
+    return 1;
 
 	char *distro = (osrelease + 6);
 	distro[strlen(distro) - 2] = '\0';
 
+	fclose(openosrelease);
 	if (strstr(distro, "Linux") != NULL) {
 		printf("%s\n", distro);
 
@@ -174,8 +175,10 @@ const char *get_ascii() {
 
 	if (f == NULL)
 		return "1";
-	
-	fgets(osrelease, sizeof(osrelease), f);
+
+	if (fgets(osrelease, sizeof(osrelease), f) == NULL)
+    return "1";
+
 	fclose(f);
 
 	char *distro = osrelease + 6;
