@@ -40,6 +40,8 @@ unsigned long long get_meminfo_value(const char *key) {
     return value;
 }
 
+
+
 void get_kernel(void) {
 	struct utsname kernelget;
 	uname(&kernelget);
@@ -66,6 +68,14 @@ void get_uptime() {
 
 	printf("%ld hours, %ld mins\n", hours, minutes);
 
+}
+
+int get_wmde() {
+  char *wmde = getenv("XDG_CURRENT_DESKTOP");
+  if (wmde == NULL)
+    return 1;
+  printf("%s\n", wmde);
+  return 0;
 }
 
 void get_procs() {
@@ -119,7 +129,7 @@ int get_compositor() {
 	char *compositor = getenv("XDG_SESSION_TYPE");
 		if (compositor == NULL)
 			return 1;
-	printf("one and only %s\n", compositor);
+	printf("%s\n", compositor);
 
 	return 0;
 }
@@ -149,10 +159,10 @@ int checkdistro() {
 	distro[strlen(distro) - 2] = '\0';
 
 	if (strstr(distro, "Linux") != NULL) {
-		printf("what could it be..? %s!\n", distro);
+		printf("%s\n", distro);
 
 	} else {
-		printf("what could it be..? %s Linux!\n", distro);
+		printf("%s Linux\n", distro);
 
 	}
 	return 0;
@@ -172,6 +182,7 @@ const char *get_ascii() {
 
 	return distro;	
 }
+
 
 int showlogo() {
 

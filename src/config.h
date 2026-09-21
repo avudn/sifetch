@@ -1,22 +1,23 @@
 #ifndef DISTROS_H
 #define DISTROS_H
 
-/* Configuration */
+/* Toggles */
 
-#define logos_enable 0
-#define hide_term 0
+#define logos_enable 1
+#define hide_term 1
 
 /* Hardware Stuff */
 
-const char * os = "OS: ";
-const char * uptime = "uppies: ";
-const char * kernel = "kernel: ";
-const char * shell = "shell: ";
-const char * term = "terminal: ";
-const char * compositor = "compositor: ";
+const char * os = "os: ";
+const char * uptime = "up: ";
+const char * kernel = "kern: ";
+const char * wm = "wm: ";
+const char * shell = "sh: ";
+const char * term = "term: ";
+const char * compositor = "entity: ";
 const char * host = "user: ";
 const char * memory = "mem: ";
 const char * procs = "procs: ";
-const char * cpu = "CPU: ";
+const char * cpu = "cpu: ";
 
 #endif

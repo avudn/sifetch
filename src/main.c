@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
+#include <sys/statvfs.h>
 #include <sys/utsname.h>
 
 #ifdef __linux__
@@ -31,31 +33,32 @@ int main(int argc, char *argv[]) {
 		printf("\n");
 	}
 
-
-
 	get_user();
-	printf(PNK BOLD "%s" RESET, os);
+	printf(MAG BOLD "%s" RESET, os);
 	checkdistro();
 
-	printf(PNK BOLD "%s" RESET,term);
+	printf(MAG BOLD "%s" RESET,term);
 	get_term();	
 
-	printf(PNK BOLD "%s" RESET,kernel);
+	printf(MAG BOLD "%s" RESET,kernel);
 	get_kernel();
 
-	printf(PNK BOLD "%s" RESET, uptime);
+	printf(MAG BOLD "%s" RESET, uptime);
 	get_uptime();
 
-	printf(PNK BOLD "%s" RESET,shell);
+  printf(MAG BOLD "%s" RESET, wm);
+  get_wmde();
+
+	printf(MAG BOLD "%s" RESET, shell);
 	get_shell();
 
-	printf(PNK BOLD "%s" RESET, memory);
+	printf(MAG BOLD "%s" RESET, memory);
 	get_memory();
 	
-	printf(PNK BOLD "%s" RESET, compositor);
+	printf(MAG BOLD "%s" RESET, compositor);
 	get_compositor();
 		
-	printf(PNK BOLD "%s" RESET, procs);
+	printf(MAG BOLD "%s" RESET, procs);
 	get_procs();	
 
 	printf("\n");
