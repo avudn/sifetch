@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
-SRC = src/main.c
+SRC = sifetch.c
 BIN = sifetch
 PREFIX = /usr/local
 
